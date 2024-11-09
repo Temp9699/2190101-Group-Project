@@ -11,7 +11,7 @@ pip install streamlit pandas matplotlib requests
 Paste you API token into "api_key"
 
 ## Run
-Type:
+Type in terminal:
 ```bash
 streamlit run main.py
 ```
