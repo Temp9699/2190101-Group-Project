@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import requests
 def datas(x):
   city = str(x) #Ensure text is a string
-  api_key = '8f241a22c0906922d8ea84aef5c119e0978791b8'
+  api_key = 'your token'
   url = f'https://api.waqi.info/feed/{city}/?token={api_key}' #Construct url from requested city and api key
   response = requests.get(url) #Send api request
   return response.json() #Return dict containing data
