@@ -1,5 +1,5 @@
 # 2190101-Group-Project
-Display aqi information of most provinces in Thailand
+Display aqi information of any city
 
 # Imports
 Install these packages in your terminal
@@ -15,4 +15,5 @@ Type in terminal:
 ```bash
 streamlit run main.py
 ```
-Exit using Ctrl + c
+## Exit 
+Press *"Ctrl + C"* in Terminal
