@@ -56,6 +56,27 @@ def graph(dates_list):
   df = pd.DataFrame(values, columns = ["max", "avg", "min", "trend"], index = day_vals)
   st.line_chart(df, color = ["#00FF00", "#FF0000", "#0000FF", "#EE00FF"])
   return
+def table_forecast(dates_list):
+  day_vals = []
+  max_vals = []
+  avg_vals = []
+  min_vals = []
+  tdate = []
+  for i in dates_list: #make list of dates, max aqis, average aqis, and minimum aqis from several list containing such data sorted by date
+    day_vals.append(i[0][5::]) #remove year from dates
+    max_vals.append(i[1])
+    avg_vals.append(i[2])
+    min_vals.append(i[3])
+  ndays = np.arange(len(avg_vals))
+  slope, y_intercept = np.polyfit(ndays, avg_vals, 1)
+  trend = slope*ndays+y_intercept
+  values = []
+  for i in dates_list:
+    values.append([i[1], i[2], i[3]])
+  for i in range(len(values)):
+    values[i].append(trend[i])
+  df = pd.DataFrame(values, columns = ["max", "avg", "min", "trend"], index = day_vals)
+  st.table(df)
 def colors(data):
   aqi_data = data["data"]["aqi"]
   if aqi_data <= 100:
@@ -96,15 +117,18 @@ if cont_button and city:
                 st.image("https://www.researchgate.net/publication/342389902/figure/fig1/AS:905570932498447@1592916343797/Air-Quality-Index-levels-of-health-concern-AQI-values-as-a-yardstick-that-runs-from-0.jpg")
               st.divider()
               st.subheader("Forecast & 2 days Historical data")
-              graph(forecast_data(data)) 
-              with st.expander("See Explanation"):
-                st.write('''The graph above shows maximum, average, minimum, and trend of AQI value 
-                from 2 days historical data up to 7 days ahead forecast,''')
+              try: 
+                graph(forecast_data(data)) 
+                with st.expander("See Explanation"):
+                  st.write('''The graph above shows maximum, average, minimum, and trend of AQI value 
+                  from 2 days historical data up to 7 days ahead forecast,''')
+              except:
+                table_forecast(forecast_data(data))
             else:
               st.write("AQI data is unavaliable for this station") 
         else:
             st.write(":red[Data is unavlaiable for this city or this city doesn't exist]")
-    except:
-        st.write("An unexpected error occured")   
+    except Exception as e:  
+        st.write(e)
 elif cont_button and not city:
   st.write(":red[Please enter a city name.]")
