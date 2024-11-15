@@ -1,6 +1,6 @@
 # 2190101-Group-Project
 Display aqi information of any city
-
+**disclaimer:** Some version of Python may have trouble with *def graph(dates_list):* function. Therefore, *def table_forecast(dates_list):* has been implemented as an alternative way to show the forecasted data
 # Imports
 open cmd or terminal and make sure you're in the correct directory
 if not, type:
